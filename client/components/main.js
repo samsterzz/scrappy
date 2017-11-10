@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
+import {Projects} from './'
 
 /**
  * COMPONENT
@@ -15,7 +16,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1>BOILERMAKER</h1>
+      <h1>SCRAPPY</h1>
       <nav>
         {
           isLoggedIn
@@ -32,6 +33,13 @@ const Main = (props) => {
         }
       </nav>
       <hr />
+       {
+        isLoggedIn
+          ? <nav>
+              <Projects />
+            </nav>
+            : null
+      }
       {children}
     </div>
   )

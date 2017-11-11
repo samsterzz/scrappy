@@ -20,7 +20,7 @@ const getAllProjects = projects => ({type: GET_ALL_PROJECTS, projects})
  */
 export const getAllProjectsThunk = (userId) =>
   dispatch =>
-    axios.get(`/api/projects/${userId}`)
+    axios.get(`/api/users/${userId}`)
       .then(res =>
         dispatch(getAllProjects(res.data)))
       .catch(err => console.log(err))
@@ -31,7 +31,7 @@ export const getAllProjectsThunk = (userId) =>
 export default function (state = defaultProjects, action) {
   switch (action.type) {
     case GET_ALL_PROJECTS:
-      return action.projects
+      return action.projects.reverse()
     default:
       return state
   }

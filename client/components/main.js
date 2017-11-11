@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {withRouter, Link} from 'react-router-dom'
+import {withRouter, Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
-import {Projects} from './'
+import {ProjectList, SettingsList} from './'
 
 /**
  * COMPONENT
@@ -13,6 +13,13 @@ import {Projects} from './'
  */
 const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
+
+  let component;
+  if (props.location.pathname.includes('projects')) {
+    component = <ProjectList />
+  } else if (props.location.pathname.includes('settings')) {
+    component = <SettingsList />
+  }
 
   return (
     <div>
@@ -24,6 +31,8 @@ const Main = (props) => {
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
               <a href="#" onClick={handleClick}>Logout</a>
+              <NavLink to="/settings">O</NavLink>
+              <NavLink to="/upload">^</NavLink>
             </div>
             : <div>
               {/* The navbar will show these links before you log in */}
@@ -33,13 +42,7 @@ const Main = (props) => {
         }
       </nav>
       <hr />
-       {
-        isLoggedIn
-          ? <nav>
-              <Projects />
-            </nav>
-            : null
-      }
+      {isLoggedIn ? <div>{component}</div> : null}
       {children}
     </div>
   )

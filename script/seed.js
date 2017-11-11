@@ -33,10 +33,11 @@ async function seed () {
   console.log(`seeded ${projects.length} projects`)
 
   const notes = await Promise.all([
-    Note.create({subject: 'test', text: 'i am a test', userId: 1, projectId: 1}),
-    Note.create({subject: 'test2', text: 'i am also a test', userId: 1, projectId: 1}),
-    Note.create({subject: 'test3', text: 'i am thirdly a test', userId: 2}),
-    Note.create({subject: 'testyay', text: 'i am a note for another project', userId: 1, projectId: 2})
+    Note.create({subject: 'test', text: 'i am a test', isPublished: true, userId: 1, projectId: 1}),
+    Note.create({subject: 'test2', text: 'i am also a test', isPublished: true, userId: 1, projectId: 1}),
+    Note.create({subject: 'test3', text: 'i am thirdly a test', isPublished: true, userId: 2}),
+    Note.create({subject: 'testyay', text: 'i am a note for another project', isPublished: true, userId: 1, projectId: 2}),
+    Note.create({subject: 'testdraft', text: 'i am a sad sad draft', isPublished: false, userId: 1})
   ])
   console.log(`seeded ${notes.length} notes`)
 

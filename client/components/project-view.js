@@ -10,13 +10,28 @@ import {getSingleProjectThunk} from '../store'
 export class ProjectView extends Component {
 
     componentDidMount() {
-        this.props.fetchUserProject(this.props.match.params.project);
+        this.props.fetchSingleProject(this.props.match.params.project);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('next props are', nextProps.match.params.project)
+        if (this.props.match.params.project != nextProps.match.params.project) {
+            this.props.fetchSingleProject(nextProps.match.params.project);
+        }
     }
 
     render() {
         console.log('PROJECT VIEW PROPS', this.props)
         return (
             <div>
+                {
+                    this.props.projectNotes.map(note => {
+                        return <p key={note.id}>
+                            {note.subject}
+                            <br />{note.text}
+                        </p>
+                    })
+                }
             </div>
         )
     }
@@ -27,14 +42,13 @@ export class ProjectView extends Component {
  */
 const mapState = (state) => {
     return {
-        project: state.project
+        projectNotes: state.projectNotes.reverse()
     }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchUserProject(projectName) {
-        console.log('PROJECT NAME', projectName)
+    fetchSingleProject(projectName) {
       dispatch(getSingleProjectThunk(projectName))
     }
   }

@@ -4,8 +4,12 @@
  * having to figure out which file they belong to!
  */
 export {default as Main} from './main'
-export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as AllView} from './all-view'
-export {default as Projects} from './projects'
+export {default as ProjectList} from './project-list'
 export {default as ProjectView} from './project-view'
+export {default as SettingsList} from './settings-list'
+export {default as SettingsHome} from './settings-home'
+export {default as SettingsAccount} from './settings-account'
+export {default as SettingsGeneral} from './settings-general'
+export {default as Upload} from './upload'

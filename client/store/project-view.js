@@ -8,7 +8,7 @@ const GET_SINGLE_PROJECT = 'GET_SINGLE_PROJECTS'
 /**
  * INITIAL STATE
  */
-const defaultProject = {}
+const defaultProject = []
 
 /**
  * ACTION CREATORS
@@ -20,7 +20,7 @@ const getSingleProject = project => ({type: GET_SINGLE_PROJECT, project})
  */
 export const getSingleProjectThunk = (projectName) =>
   dispatch =>
-    axios.get(`/api/projects/single/${projectName}`)
+    axios.get(`/api/projects/${projectName}`)
       .then(res => {
         dispatch(getSingleProject(res.data)) })
       .catch(err => console.log(err))

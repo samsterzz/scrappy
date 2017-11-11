@@ -8,14 +8,12 @@ import {getAllNotesThunk} from '../store'
 export class AllView extends Component {
 
     componentDidMount() {
-        this.props.fetchUserNotes(this.props.userId);
+        this.props.fetchAllNotes(this.props.userId);
     }
 
     render() {
-        console.log('NOTES PROPS', this.props)
         return (
             <div>
-                <h4>Notes</h4>
                 {
                     this.props.notes.map(note => {
                         return <p key={note.id}>
@@ -41,7 +39,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchUserNotes(userId) {
+    fetchAllNotes(userId) {
       dispatch(getAllNotesThunk(userId))
     }
   }

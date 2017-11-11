@@ -1,24 +1,22 @@
 const router = require('express').Router()
-const {Project} = require('../db/models')
+const {Project, Note} = require('../db/models')
 module.exports = router
 
-router.get('/single/:projectname', (req, res, next) => {
+router.get('/:name', (req, res, next) => {
     Project.findOne({
         where: {
-            name: req.params.projectname
+            name: req.params.name
         }
     })
-    .then(project => res.json(project))
-    .catch(next)
-})
-
-router.get('/:userid', (req, res, next) => {
-    Project.findAll({
-        where: {
-            userId: req.params.userid
-        }
+    .then(project => {
+        Note.findAll({
+            where: {
+                projectId: project.id
+            }
+        })
+        .then(notes => res.json(notes))
+        .catch(next)
     })
-    .then(projects => res.json(projects))
     .catch(next)
 })
 

@@ -18,9 +18,9 @@ const getDraft = draft => ({type: GET_DRAFT, draft})
 /**
  * THUNK CREATORS
  */
-export const getDraftThunk = (draftId) =>
+export const getDraftThunk = (userId) =>
   dispatch =>
-    axios.get(`/api/drafts/${draftId}`)
+    axios.get(`/api/notes/${userId}/draft`)
       .then(res =>
         dispatch(getDraft(res.data)))
       .catch(err => console.log(err))

@@ -13,6 +13,10 @@ const Note = db.define('note', {
         get() {
             // return s3 pathname + this.id?
         }
+    },
+    isPublished: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
 })
 

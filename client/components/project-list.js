@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {withRouter} from 'react-router';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {getAllProjectsThunk} from '../store'
@@ -6,20 +7,20 @@ import {getAllProjectsThunk} from '../store'
 /**
  * COMPONENT
  */
-export class Projects extends Component {
+export class ProjectList extends Component {
 
     componentDidMount() {
-        this.props.fetchUserProjects(this.props.userId);
+        this.props.fetchAllProjects(this.props.userId);
     }
 
     render() {
-        console.log('PROJECTS PROPS', this.props)
+        
         return (
             <ul>
                 {
                     this.props.projects.map(project => {
                         return <li key={project.id}>
-                             <NavLink to={`/home/${project.name}`}>{project.name}</NavLink> 
+                             <NavLink to={`/projects/${project.name}`}>{project.name}</NavLink> 
                         </li>
                     })
                 }
@@ -34,16 +35,16 @@ export class Projects extends Component {
 const mapState = (state) => {
     return {
         userId: state.user.id,
-        projects: state.projects.reverse() // to put the projects in reverse chronological order
+        projects: state.projects
     }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchUserProjects(userId) {
+    fetchAllProjects(userId) {
       dispatch(getAllProjectsThunk(userId))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(Projects)
+export default withRouter(connect(mapState, mapDispatch)(ProjectList))

@@ -30,8 +30,23 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/add', (req, res, next) => {
-  Note.create(req.body)
+router.put('/add', (req, res, next) => {
+  console.log('REQ BOOOOOOOOODY', req.body)
+  Note.findById(req.body.id)
+    .then(note => {
+      note.update({
+        projectId: req.body.projectId,
+        text: req.body.text,
+        image: req.body.image,
+        isPublished: true
+      })
+    })
     .then(note => res.json(note))
     .catch(next)
+})
+
+router.delete('/remove/:id', (req, res, next) => {
+    Note.findById(req.params.id)
+    .then(note => note.destroy())
+    .catch(next);
 })

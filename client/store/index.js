@@ -6,9 +6,8 @@ import user from './user'
 import notes from './notes'
 import projects from './project-list'
 import projectNotes from './project-view'
-import draft from './draft'
 
-const reducer = combineReducers({user, notes, projects, projectNotes, draft})
+const reducer = combineReducers({user, notes, projects, projectNotes})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -20,4 +19,3 @@ export * from './user'
 export * from './notes'
 export * from './project-list'
 export * from './project-view'
-export * from './draft'

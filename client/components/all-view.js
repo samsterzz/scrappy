@@ -1,14 +1,24 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getNotesThunk} from '../store'
+import {getNotesThunk, removeNoteThunk} from '../store'
 
 /**
  * COMPONENT
  */
 export class AllView extends Component {
 
+    constructor() {
+        super()
+
+        this.handleClick = this.handleClick.bind(this)
+    }
+
     componentDidMount() {
-        this.props.fetchNotes(this.props.userId);
+        this.props.fetchNotes(this.props.userId)
+    }
+
+    handleClick(event) {
+        this.props.removeNote(Number(event.target.value))
     }
 
     render() {
@@ -17,7 +27,7 @@ export class AllView extends Component {
                 {
                     this.props.notes.map(note => {
                         return <p key={note.id}>
-                            {note.subject}
+                            <button value={note.id} onClick={this.handleClick}>x</button>  
                             <br />{note.text}
                         </p>
                     })
@@ -41,6 +51,9 @@ const mapDispatch = (dispatch) => {
   return {
     fetchNotes(userId) {
       dispatch(getNotesThunk(userId))
+    },
+    removeNote(noteId) {
+        dispatch(removeNoteThunk(noteId))
     }
   }
 }

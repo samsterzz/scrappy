@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getDraftThunk, publishThunk, getProjectsThunk} from '../store'
+import {publishThunk, getProjectsThunk} from '../store'
 import history from '../history'
 
 /**
@@ -10,13 +10,14 @@ export class Upload extends Component {
 
     constructor(props) {
         super(props)
-
+        console.log('THE PROPS', props)
         this.state = {
-            projectId: null,
-            text: '',
+            id: props.draft.id,
+            text: props.draft.text,
             image: '',
             isPublished: false,
-            userId: props.userId
+            userId: props.userId,
+            projectId: null
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -25,7 +26,6 @@ export class Upload extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchDraft(this.props.userId)
         this.props.fetchProjects(this.props.userId)
     }
 
@@ -86,19 +86,16 @@ export class Upload extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
-    console.log('THE STATE', state)
+    console.log('STATE', state)
     return {
         userId: state.user.id,
-        draft: state.draft,
+        draft: state.user.notes[0] || {},
         projects: state.projects
     }
 }
 
 const mapDispatch = (dispatch) => {
     return {
-        fetchDraft(userId) {
-            dispatch(getDraftThunk(userId))
-        },
         fetchProjects(userId) {
             dispatch(getProjectsThunk(userId))
         },

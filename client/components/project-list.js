@@ -33,10 +33,11 @@ export class ProjectList extends Component {
     handleSubmit(event) {
         event.preventDefault()
 
-        this.props.createProject(this.state, this.props.userId)    
-        this.setState({name: ''})
+        this.props.createProject(this.state, this.props.userId)
 
         history.push(`/projects/${this.state.name}`)
+
+        this.setState({name: ''})
     }
 
     render() {

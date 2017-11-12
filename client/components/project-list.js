@@ -66,7 +66,6 @@ export class ProjectList extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
-    console.log(state)
     return {
         userId: state.user.id,
         projects: state.projects

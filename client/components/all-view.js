@@ -1,23 +1,30 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {getNotesThunk} from '../store'
 
 /**
  * COMPONENT
  */
-export const AllView = props => {
+export class AllView extends Component {
 
-    return (
-        <div>
-            {
-                props.notes.map(note => {
-                    return <p key={note.id}>
-                        {note.subject}
-                        <br />{note.text}
-                    </p>
-                })
-            }
-        </div>
-    )
+    componentDidMount() {
+        this.props.fetchNotes(this.props.userId);
+    }
+
+    render() {
+        return (
+            <div>
+                {
+                    this.props.notes.map(note => {
+                        return <p key={note.id}>
+                            {note.subject}
+                            <br />{note.text}
+                        </p>
+                    })
+                }
+            </div>
+        )
+    }
 }
 
 /**
@@ -26,8 +33,16 @@ export const AllView = props => {
 const mapState = (state) => {
     return {
         userId: state.user.id,
-        notes: state.user.notes.reverse() // to put the notes in reverse chronological order
+        notes: state.notes.reverse() // to put the notes in reverse chronological order
     }
 }
 
-export default connect(mapState)(AllView)
+const mapDispatch = (dispatch) => {
+  return {
+    fetchNotes(userId) {
+      dispatch(getNotesThunk(userId))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(AllView)

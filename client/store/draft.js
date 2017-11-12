@@ -4,6 +4,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_DRAFT = 'GET_DRAFT'
+const PUBLISH = 'PUBLISH'
 
 /**
  * INITIAL STATE
@@ -23,6 +24,11 @@ export const getDraftThunk = (userId) =>
     axios.get(`/api/notes/${userId}/draft`)
       .then(res =>
         dispatch(getDraft(res.data)))
+      .catch(err => console.log(err))
+
+export const publishThunk = (draft) =>
+  dispatch =>
+    axios.post(`/api/notes/add`, Object.assign({}, draft, {isPublished: true}))
       .catch(err => console.log(err))
 
 /**

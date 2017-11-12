@@ -3,7 +3,8 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const GET_ALL_PROJECTS = 'GET_ALL_PROJECTS'
+const GET_PROJECTS = 'GET_PROJECTS'
+const ADD_PROJECT = 'ADD_PROJECT'
 
 /**
  * INITIAL STATE
@@ -13,16 +14,21 @@ const defaultProjects = []
 /**
  * ACTION CREATORS
  */
-const getAllProjects = projects => ({type: GET_ALL_PROJECTS, projects})
+const getProjects = projects => ({type: GET_PROJECTS, projects})
 
 /**
  * THUNK CREATORS
  */
-export const getAllProjectsThunk = (userId) =>
+export const getProjectsThunk = (userId) =>
   dispatch =>
     axios.get(`/api/users/${userId}`)
       .then(res =>
-        dispatch(getAllProjects(res.data)))
+        dispatch(getProjects(res.data)))
+      .catch(err => console.log(err))
+
+export const addProjectThunk = (project) =>
+  dispatch =>
+    axios.post(`/api/projects/add`, project)
       .catch(err => console.log(err))
 
 /**
@@ -30,7 +36,7 @@ export const getAllProjectsThunk = (userId) =>
  */
 export default function (state = defaultProjects, action) {
   switch (action.type) {
-    case GET_ALL_PROJECTS:
+    case GET_PROJECTS:
       return action.projects.reverse()
     default:
       return state

@@ -8,11 +8,8 @@ const Note = db.define('note', {
     text: {
         type: Sequelize.TEXT
     },
-    imagePath: {
-        type: Sequelize.VIRTUAL,
-        get() {
-            // return s3 pathname + this.id?
-        }
+    image: {
+        type: Sequelize.BLOB
     },
     isPublished: {
         type: Sequelize.BOOLEAN,

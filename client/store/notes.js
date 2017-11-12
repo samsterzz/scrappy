@@ -3,7 +3,7 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const GET_ALL_NOTES = 'GET_ALL_NOTES'
+const GET_NOTES = 'GET_NOTES'
 
 /**
  * INITIAL STATE
@@ -13,16 +13,16 @@ const defaultNotes = []
 /**
  * ACTION CREATORS
  */
-const getAllNotes = notes => ({type: GET_ALL_NOTES, notes})
+const getNotes = notes => ({type: GET_NOTES, notes})
 
 /**
  * THUNK CREATORS
  */
-export const getAllNotesThunk = (userId) =>
+export const getNotesThunk = (userId) =>
   dispatch =>
     axios.get(`/api/notes/${userId}`)
       .then(res =>
-        dispatch(getAllNotes(res.data)))
+        dispatch(getNotes(res.data)))
       .catch(err => console.log(err))
 
 /**
@@ -30,7 +30,7 @@ export const getAllNotesThunk = (userId) =>
  */
 export default function (state = defaultNotes, action) {
   switch (action.type) {
-    case GET_ALL_NOTES:
+    case GET_NOTES:
       return action.notes
     default:
       return state

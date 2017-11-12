@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getAllNotesThunk} from '../store'
+import {getNotesThunk} from '../store'
 
 /**
  * COMPONENT
@@ -8,7 +8,7 @@ import {getAllNotesThunk} from '../store'
 export class AllView extends Component {
 
     componentDidMount() {
-        this.props.fetchAllNotes(this.props.userId);
+        this.props.fetchNotes(this.props.userId);
     }
 
     render() {
@@ -39,8 +39,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchAllNotes(userId) {
-      dispatch(getAllNotesThunk(userId))
+    fetchNotes(userId) {
+      dispatch(getNotesThunk(userId))
     }
   }
 }

@@ -25,3 +25,9 @@ router.get('/', (req, res, next) => {
     .then(projects => res.json(projects))
     .catch(next)
 })
+
+router.post('/add', (req, res, next) => {
+  Project.create(req.body)
+    .then(project => res.json(project))
+    .catch(next)
+})

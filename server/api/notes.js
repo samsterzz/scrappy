@@ -29,3 +29,9 @@ router.get('/', (req, res, next) => {
     .then(notes => res.json(notes))
     .catch(next)
 })
+
+router.post('/add', (req, res, next) => {
+  Note.create(req.body)
+    .then(note => res.json(note))
+    .catch(next)
+})

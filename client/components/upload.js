@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getDraftThunk, publishThunk, getProjectsThunk} from '../store'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -9,10 +10,9 @@ export class Upload extends Component {
 
     constructor(props) {
         super(props)
-        console.log('THE PROPS IN CONSTRUCTOR', props)
+
         this.state = {
             projectId: null,
-            subject: '',
             text: '',
             image: '',
             isPublished: false,
@@ -34,10 +34,9 @@ export class Upload extends Component {
             this.setState({projectId: Number(event.target.value)})
             return
         }
-
         this.setState({[event.target.name]: event.target.value})
 
-        console.log('the state', this.state)
+        console.log('STATE', this.state)
     }
 
     handleImageChange(event) {
@@ -46,15 +45,17 @@ export class Upload extends Component {
 
     handleSubmit(event) {
         event.preventDefault()
-
+        
         this.props.createNote(this.state)
+        this.setState({text: '', image: '', isPublished: false});
 
-        this.setState({subject: '', text: '', image: '', isPublished: false});
+        let projectName = this.props.projects.find(project => 
+            project.id === this.state.projectId
+        ).name
+        history.push(`/projects/${projectName}`)
     }
 
     render() {
-        console.log('THE PROPS IN RENDER', this.props)
-
         return (
             <form onSubmit={this.handleSubmit}>
                 <p><select onChange={this.handleChange}>
@@ -65,12 +66,6 @@ export class Upload extends Component {
                         )
                     }
                 </select></p>
-                <p>Subject: <input
-                    type="text"
-                    name="subject"
-                    value={this.state.subject}
-                    onChange = {this.handleChange} 
-                /></p>
                 <p>Text: <input
                     type="text"
                     name="text"

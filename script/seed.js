@@ -27,17 +27,17 @@ async function seed () {
   console.log(`seeded ${users.length} users`)
 
   const projects = await Promise.all([
-    Project.create({name: 'thesis', description: 'i am a long paper', userId: 1}),
-    Project.create({name: 'a short paper', description: 'i am a short paper', userId: 1})
+    Project.create({name: 'thesis', userId: 1}),
+    Project.create({name: 'a short paper', userId: 1})
   ])
   console.log(`seeded ${projects.length} projects`)
 
   const notes = await Promise.all([
-    Note.create({subject: 'test', text: 'i am a test', isPublished: true, userId: 1, projectId: 1}),
-    Note.create({subject: 'test2', text: 'i am also a test', isPublished: true, userId: 1, projectId: 1}),
-    Note.create({subject: 'test3', text: 'i am thirdly a test', isPublished: true, userId: 2}),
-    Note.create({subject: 'testyay', text: 'i am a note for another project', isPublished: true, userId: 1, projectId: 2}),
-    Note.create({subject: 'testdraft', text: 'i am a sad sad draft', isPublished: false, userId: 1})
+    Note.create({text: 'i am a test', isPublished: true, userId: 1, projectId: 1}),
+    Note.create({text: 'i am also a test', isPublished: true, userId: 1, projectId: 1}),
+    Note.create({text: 'i am thirdly a test', isPublished: true, userId: 2}),
+    Note.create({text: 'i am a note for another project', isPublished: true, userId: 1, projectId: 2}),
+    Note.create({text: 'i am a sad sad draft', isPublished: false, userId: 1})
   ])
   console.log(`seeded ${notes.length} notes`)
 

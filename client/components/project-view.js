@@ -48,8 +48,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchSingleProject(projectName) {
-      dispatch(getSingleProjectThunk(projectName))
+    fetchSingleProject(project) {
+      dispatch(getSingleProjectThunk(project))
     }
   }
 }

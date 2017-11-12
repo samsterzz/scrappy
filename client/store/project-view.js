@@ -13,14 +13,14 @@ const defaultProject = []
 /**
  * ACTION CREATORS
  */
-const getSingleProject = project => ({type: GET_SINGLE_PROJECT, project})
+const getSingleProject = notes => ({type: GET_SINGLE_PROJECT, notes})
 
 /**
  * THUNK CREATORS
  */
-export const getSingleProjectThunk = (projectName) =>
+export const getSingleProjectThunk = (project) =>
   dispatch =>
-    axios.get(`/api/projects/${projectName}`)
+    axios.get(`/api/projects/${project}`)
       .then(res => {
         dispatch(getSingleProject(res.data)) })
       .catch(err => console.log(err))
@@ -31,7 +31,7 @@ export const getSingleProjectThunk = (projectName) =>
 export default function (state = defaultProject, action) {
   switch (action.type) {
     case GET_SINGLE_PROJECT:
-      return action.project
+      return action.notes
     default:
       return state
   }

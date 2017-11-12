@@ -3,6 +3,7 @@ import {withRouter} from 'react-router';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {getProjectsThunk, addProjectThunk} from '../store'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -11,9 +12,9 @@ export class ProjectList extends Component {
 
     constructor(props) {
         super(props)
+
         this.state = {
             name: '',
-            description: '',
             userId: props.userId
         }
 
@@ -26,15 +27,16 @@ export class ProjectList extends Component {
     }
 
     handleChange(event) {
-        this.setState({[event.target.name]: event.target.value})
-
-        console.log('the state', this.state)
+        this.setState({name: event.target.value})
     }
 
     handleSubmit(event) {
         event.preventDefault()
 
-        this.props.createProject(this.state)
+        this.props.createProject(this.state, this.props.userId)    
+        this.setState({name: ''})
+
+        history.push(`/projects/${this.state.name}`)
     }
 
     render() {
@@ -50,17 +52,10 @@ export class ProjectList extends Component {
                 <li><form onSubmit={this.handleSubmit}>
                     <input
                         type="text"
-                        name="name"
                         value={this.state.name}
                         onChange = {this.handleChange} 
                     />
-                    <br /><input
-                        type="text"
-                        name="description"
-                        value={this.state.description}
-                        onChange = {this.handleChange} 
-                    />
-                    <button type="submit">Submit</button>
+                    <button type="submit">+</button>
                 </form></li>
             </ul>
         )
@@ -71,7 +66,6 @@ export class ProjectList extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
-    console.log(state)
     return {
         userId: state.user.id,
         projects: state.projects
@@ -83,8 +77,9 @@ const mapDispatch = (dispatch) => {
     fetchProjects(userId) {
       dispatch(getProjectsThunk(userId))
     },
-    createProject(project) {
+    createProject(project, userId) {
         dispatch(addProjectThunk(project))
+        dispatch(getProjectsThunk(userId))
     }
   }
 }

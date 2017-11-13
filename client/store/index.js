@@ -7,7 +7,7 @@ import notes from './notes'
 import projects from './project-list'
 import projectNotes from './project-view'
 
-const reducer = combineReducers({user, notes, projects, projectNotes})
+const reducer = combineReducers({user, projects, notes, projectNotes})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})

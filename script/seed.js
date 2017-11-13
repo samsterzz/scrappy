@@ -37,7 +37,7 @@ async function seed () {
     Note.create({text: 'i am also a test', userId: 1, projectId: 1}),
     Note.create({text: 'i am thirdly a test', userId: 2}),
     Note.create({text: 'i am a note for another project', userId: 1, projectId: 2}),
-    Note.create({text: 'i am a sad sad draft', iuserId: 1})
+    Note.create({text: 'i am a sad sad draft', userId: 1})
   ])
   console.log(`seeded ${notes.length} notes`)
 

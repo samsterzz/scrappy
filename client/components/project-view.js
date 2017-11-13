@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux'
-import {getProjectNotesThunk, removeNoteFromProjectThunk} from '../store'
+import {getProjectNotesThunk} from '../store'
+import {Note} from './'
 
 /**
  * COMPONENT
@@ -34,12 +35,9 @@ export class ProjectView extends Component {
         return (
             <div>
                 {
-                    this.props.projectNotes.map(note => {
-                        return <p key={note.id}>
-                            <button value={note.id} onClick={this.handleClick}>x</button> 
-                            <br />{note.text}
-                        </p>
-                    })
+                    this.props.projectNotes.map(note => 
+                        <Note key={note.id} text={note.text} noteId={note.id} />
+                    )
                 }
             </div>
         )
@@ -59,9 +57,6 @@ const mapDispatch = (dispatch) => {
   return {
     fetchProjectNotes(projectName) {
         dispatch(getProjectNotesThunk(projectName))
-    },
-    removeNote(noteId) {
-        dispatch(removeNoteFromProjectThunk(noteId))
     }
   }
 }

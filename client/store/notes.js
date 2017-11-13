@@ -28,9 +28,20 @@ export const getNotesThunk = (userId) =>
       .catch(err => console.log(err))
 
 export const createNoteThunk = (draft) => 
-  dispatch => 
+  dispatch => {
+    console.log('DRAFT', draft)
+    // var config = {
+    //         headers: { 'content-type': 'multipart/form-data' }
+    //     }
     axios.post(`/api/notes/add`, draft)
       .catch(err => console.log(err))
+  }
+
+export const editNoteThunk = (noteId, note) => 
+  dispatch => {
+    axios.put(`/api/notes/edit/${noteId}`, note)
+        .catch(err => console.log(err))
+  }
 
 export const removeNoteThunk = (noteId) =>
   dispatch => {

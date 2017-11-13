@@ -11,7 +11,7 @@ export const SettingsHome = (props) => {
     <div>
         Hello, {
           firstName ? firstName : email
-        }
+        }!
     </div>
   )
 }

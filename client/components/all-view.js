@@ -17,7 +17,12 @@ export class AllView extends Component {
             <div>
                 {
                     this.props.notes.map(note => 
-                        <Note key={note.id} text={note.text} noteId={note.id} />
+                        <Note 
+                            key={note.id} 
+                            image={note.image} 
+                            text={note.text} 
+                            noteId={note.id} 
+                        />
                     )
                 }
             </div>

@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {withRouter, Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 import {ProjectList, SettingsList} from './'
+import {CloudUploadIcon, GearIcon} from 'react-octicons'
 
 /**
  * COMPONENT
@@ -12,6 +13,7 @@ import {ProjectList, SettingsList} from './'
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
+
   const {children, handleClick, isLoggedIn} = props
 
   let component;
@@ -21,9 +23,13 @@ const Main = (props) => {
     component = <SettingsList />
   }
 
+  var style = {
+  fill:"blue"
+};
+
   return (
     <div>
-      <h1>SCRAPPY</h1>
+      <h1 style={style}>SCRAPPY <CloudUploadIcon  width="75" height="75" /> <GearIcon width="75" height="75" /></h1> 
       <nav>
         {
           isLoggedIn

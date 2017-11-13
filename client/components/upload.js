@@ -39,15 +39,19 @@ export class Upload extends Component {
 
     handleImageChange(event) {
         event.preventDefault()
-        
+
         this.setState({image: event.target.files[0]})
     }
 
     handleSubmit(event) {
         event.preventDefault()
+
+        if (!this.state.projectId) {
+            alert("Oops! Please select a project.")
+            return false
+        }
+
         this.props.publish(this.state)
-        console.log('IMAGE IN HANDLE SUBMIT', this.state.image)
-        this.setState({text: '', image: ''});
 
         if (this.state.projectId) {
             let projectName = this.props.projects.find(project => 

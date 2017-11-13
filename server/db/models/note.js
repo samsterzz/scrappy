@@ -6,7 +6,7 @@ const Note = db.define('note', {
         type: Sequelize.TEXT
     },
     image: {
-        type: Sequelize.BLOB
+        type: Sequelize.STRING
     }
 })
 

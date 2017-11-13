@@ -11,6 +11,7 @@ export class Note extends Component {
         super(props)
 
         this.state = {
+            image: 'https://s3.us-east-2.amazonaws.com/scrappynotes/' + props.image,
             text: props.text,
             showEdit: false
         }
@@ -48,7 +49,10 @@ export class Note extends Component {
         return (
             <div>
                 <button onClick={this.toggleVisible}>Edit</button>
-                <button value={this.props.noteId} onClick={this.handleClick}>x</button>  
+                <button value={this.props.noteId} onClick={this.handleClick}>x</button>
+                {
+                    this.props.image && <p><img src={this.state.image} /></p>
+                }
                 {
                     !this.state.showEdit ? <p>{this.state.text}</p> 
                     : <form onSubmit={this.handleSubmit}>

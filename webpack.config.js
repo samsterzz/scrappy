@@ -26,7 +26,9 @@ module.exports = {
       {
         test: /\.svg$|\.ttf?|\.woff$|\.woff2|\.eof|\.eot/,
         loader: 'file-loader'
-      }
+      },
+      {test: /\.css$/, loader: 'style!css'},
+     {test: /\.(otf|eot|svg|ttf|woff|woff2).*$/, loader: 'url?limit=8192'}
     ]
   },
   // When we're in development, we can use this handy live-reload plugin

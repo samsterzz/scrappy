@@ -36,7 +36,12 @@ export class ProjectView extends Component {
             <div>
                 {
                     this.props.projectNotes.map(note => 
-                        <Note key={note.id} text={note.text} noteId={note.id} />
+                        <Note
+                            key={note.id} 
+                            image={note.image} 
+                            text={note.text} 
+                            noteId={note.id} 
+                        />
                     )
                 }
             </div>

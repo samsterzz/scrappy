@@ -23,13 +23,9 @@ const Main = (props) => {
     component = <SettingsList />
   }
 
-  var style = {
-  fill:"blue"
-};
-
   return (
     <div>
-      <h1 style={style}>SCRAPPY <CloudUploadIcon  width="75" height="75" /> <GearIcon width="75" height="75" /></h1> 
+      <h1>SCRAPPY</h1> 
       <nav>
         {
           isLoggedIn
@@ -37,8 +33,12 @@ const Main = (props) => {
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
               <a href="#" onClick={handleClick}>Logout</a>
-              <NavLink to="/settings">O</NavLink>
-              <NavLink to="/upload">^</NavLink>
+              <NavLink to="/settings">
+                <GearIcon width="25" height="25" className="icon" />
+              </NavLink>
+              <NavLink to="/upload">
+                <CloudUploadIcon  width="25" height="25" className="icon" />
+              </NavLink>
             </div>
             : <div>
               {/* The navbar will show these links before you log in */}

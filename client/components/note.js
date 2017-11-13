@@ -47,7 +47,7 @@ export class Note extends Component {
     render() {
         console.log(this.state.showEdit)
         return (
-            <div>
+            <div className="note">
                 <button onClick={this.toggleVisible}>Edit</button>
                 <button value={this.props.noteId} onClick={this.handleClick}>x</button>
                 {

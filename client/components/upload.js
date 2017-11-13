@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getProjectsThunk, createNoteThunk} from '../store'
 import history from '../history'
@@ -71,7 +70,12 @@ export class Upload extends Component {
                     <option value="">Select Project</option>  
                     {
                         this.props.projects.map(project => 
-                            <option key={project.id} value={project.id}>{project.name}</option>
+                            <option 
+                                key={project.id} 
+                                value={project.id} 
+                                selected={this.props.previousPath === project.name}>
+                                    {project.name}
+                            </option>
                         )
                     }
                 </select></p>
@@ -97,7 +101,8 @@ export class Upload extends Component {
 const mapState = (state) => {
     return {
         userId: state.user.id,
-        projects: state.projects
+        projects: state.projects,
+        previousPath: state.previousPath
     }
 }
 
@@ -112,4 +117,4 @@ const mapDispatch = (dispatch) => {
     }
 }
 
-export default withRouter(connect(mapState, mapDispatch)(Upload))
+export default connect(mapState, mapDispatch)(Upload)

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux'
-import {getProjectNotesThunk} from '../store'
+import {getProjectNotesThunk, setPathThunk} from '../store'
 import {Note} from './'
 
 /**
@@ -10,8 +10,11 @@ import {Note} from './'
  */
 export class ProjectView extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
+
+        console.log('CURRENT PATH', props.match.params.project)
+        props.setPath(props.match.params.project)
 
         this.handleClick = this.handleClick.bind(this)
     }
@@ -21,9 +24,11 @@ export class ProjectView extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('next props are', nextProps.match.params.project)
+        console.log('CURRENT PATH', nextProps.match.params.project)
+        this.props.setPath(nextProps.match.params.project)
+
         if (this.props.match.params.project != nextProps.match.params.project) {
-            this.props.fetchProjectNotes(nextProps.match.params.project);
+            this.props.fetchProjectNotes(nextProps.match.params.project)
         }
     }
 
@@ -62,6 +67,9 @@ const mapDispatch = (dispatch) => {
   return {
     fetchProjectNotes(projectName) {
         dispatch(getProjectNotesThunk(projectName))
+    },
+    setPath(path) {
+        dispatch(setPathThunk(path))
     }
   }
 }

@@ -26,6 +26,25 @@ body {
   }
 
   img {
-    max-width: 50%
+    max-width: 75%;
+  }
+
+  .icon {
+    fill: gray;
+  }
+
+  /* Gradient color1 - color2 - color1 */
+
+  hr {
+      border: 0;
+      height: 1px;
+      background: #333;
+      background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  }
+
+  .note {
+    // border: 2px solid black;
+    max-width: 75%;
+    background: antiquewhite;
   }
 }

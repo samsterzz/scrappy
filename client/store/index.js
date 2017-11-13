@@ -6,8 +6,9 @@ import user from './user'
 import notes from './notes'
 import projects from './project-list'
 import projectNotes from './project-view'
+import previousPath from './path'
 
-const reducer = combineReducers({user, projects, notes, projectNotes})
+const reducer = combineReducers({user, projects, notes, projectNotes, previousPath})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -19,3 +20,4 @@ export * from './user'
 export * from './notes'
 export * from './project-list'
 export * from './project-view'
+export * from './path'

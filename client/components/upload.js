@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getProjectsThunk, createNoteThunk} from '../store'
 import history from '../history'
@@ -17,7 +18,7 @@ export class Upload extends Component {
             userId: props.userId,
             projectId: null
         }
-
+        console.log('THE PROPS IN STATE', props)
         this.handleChange = this.handleChange.bind(this)
         this.handleImageChange = this.handleImageChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -111,4 +112,4 @@ const mapDispatch = (dispatch) => {
     }
 }
 
-export default connect(mapState, mapDispatch)(Upload)
+export default withRouter(connect(mapState, mapDispatch)(Upload))

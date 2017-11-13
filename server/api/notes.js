@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const {Note} = require('../db/models')
+const multer = require('multer');
+const form = multer();
 module.exports = router
 
 var AWS = require('aws-sdk');
@@ -21,15 +23,16 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/add', (req, res, next) => {
+router.post('/add', form.single('image'), (req, res, next) => {
   Note.create(req.body)
     .then(note => {
-      console.log('THE NOTE image', note)
+      console.log('NOOOOOOOOTE', note)
+
       let params = {
         Bucket: 'scrappynotes', 
         Key: note.id + '.jpg', 
-        Body: req.body.image,
-        ContentType: "image/jpeg",
+        Body: req.file.buffer,
+        ContentType: req.file.mimetype,
         ACL: "public-read"
       };
 

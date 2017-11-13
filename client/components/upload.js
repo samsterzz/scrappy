@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {publishThunk, getProjectsThunk} from '../store'
+import {getProjectsThunk, createNoteThunk} from '../store'
 import history from '../history'
 
 /**
@@ -10,12 +10,10 @@ export class Upload extends Component {
 
     constructor(props) {
         super(props)
-        console.log('THE PROPS', props)
+
         this.state = {
-            id: props.draft.id,
-            text: props.draft.text,
+            text: '',
             image: '',
-            isPublished: false,
             userId: props.userId,
             projectId: null
         }
@@ -46,13 +44,17 @@ export class Upload extends Component {
     handleSubmit(event) {
         event.preventDefault()
         
-        this.props.createNote(this.state)
-        this.setState({text: '', image: '', isPublished: false});
+        this.props.publish(this.state)
+        this.setState({text: '', image: ''});
 
-        let projectName = this.props.projects.find(project => 
-            project.id === this.state.projectId
-        ).name
-        history.push(`/projects/${projectName}`)
+        if (this.state.projectId) {
+            let projectName = this.props.projects.find(project => 
+                project.id === this.state.projectId
+            ).name
+            history.push(`/projects/${projectName}`)
+        } else {
+            history.push(`/projects`)
+        }
     }
 
     render() {
@@ -86,10 +88,8 @@ export class Upload extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
-    console.log('STATE', state)
     return {
         userId: state.user.id,
-        draft: state.user.notes[0] || {},
         projects: state.projects
     }
 }
@@ -99,8 +99,8 @@ const mapDispatch = (dispatch) => {
         fetchProjects(userId) {
             dispatch(getProjectsThunk(userId))
         },
-        createNote(draft) {
-            dispatch(publishThunk(draft))
+        publish(draft) {
+            dispatch(createNoteThunk(draft))
         }
     }
 }

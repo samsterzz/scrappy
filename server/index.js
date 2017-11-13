@@ -26,17 +26,7 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
-  db.models.user.findOne({
-    where: {
-      id: id
-    },
-    include: [{
-      model: db.models.note,
-      where: {
-        isPublished: false
-      }
-    }]
-  })
+  db.models.user.findById(id)
     .then(user => done(null, user))
     .catch(done))
 

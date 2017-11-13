@@ -7,10 +7,6 @@ const Note = db.define('note', {
     },
     image: {
         type: Sequelize.BLOB
-    },
-    isPublished: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
     }
 })
 

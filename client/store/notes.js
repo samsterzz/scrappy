@@ -27,17 +27,17 @@ export const getNotesThunk = (userId) =>
         dispatch(getNotes(res.data)))
       .catch(err => console.log(err))
 
-export const publishThunk = (draft) => 
+export const createNoteThunk = (draft) => 
   dispatch => 
-    axios.put(`/api/notes/add`, draft)
+    axios.post(`/api/notes/add`, draft)
       .catch(err => console.log(err))
 
 export const removeNoteThunk = (noteId) =>
-  dispatch =>
+  dispatch => {
+    dispatch(removeNote(noteId))
     axios.delete(`/api/notes/remove/${noteId}`)
-      .then(res =>
-        dispatch(removeNote(res.data)))
       .catch(err => console.log(err))
+  }
 
 /**
  * REDUCER
@@ -47,7 +47,7 @@ export default function (state = defaultNotes, action) {
     case GET_NOTES:
       return action.notes
     case REMOVE_NOTE:
-      return state.notes.filter(note => note.id !== action.noteId)
+      return state.filter(note => note.id !== action.noteId)
     default:
       return state
   }

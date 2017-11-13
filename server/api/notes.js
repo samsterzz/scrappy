@@ -2,22 +2,10 @@ const router = require('express').Router()
 const {Note} = require('../db/models')
 module.exports = router
 
-router.get('/:userid/draft', (req, res, next) => {
-  Note.findOne({
-    where: {
-      userId: req.params.userid,
-      isPublished: false
-    }
-  })
-    .then(notes => res.json(notes))
-    .catch(next)
-})
-
 router.get('/:userid', (req, res, next) => {
   Note.findAll({
     where: {
-      userId: req.params.userid,
-      isPublished: true
+      userId: req.params.userid
     }
   })
     .then(notes => res.json(notes))
@@ -30,17 +18,8 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.put('/add', (req, res, next) => {
-  console.log('REQ BOOOOOOOOODY', req.body)
-  Note.findById(req.body.id)
-    .then(note => {
-      note.update({
-        projectId: req.body.projectId,
-        text: req.body.text,
-        image: req.body.image,
-        isPublished: true
-      })
-    })
+router.post('/add', (req, res, next) => {
+  Note.create(req.body)
     .then(note => res.json(note))
     .catch(next)
 })

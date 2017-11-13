@@ -2,32 +2,41 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux'
-import {getSingleProjectThunk} from '../store'
+import {getProjectNotesThunk, removeNoteFromProjectThunk} from '../store'
 
 /**
  * COMPONENT
  */
 export class ProjectView extends Component {
 
+    constructor() {
+        super()
+
+        this.handleClick = this.handleClick.bind(this)
+    }
+
     componentDidMount() {
-        this.props.fetchSingleProject(this.props.match.params.project);
+        this.props.fetchProjectNotes(this.props.match.params.project);
     }
 
     componentWillReceiveProps(nextProps) {
         console.log('next props are', nextProps.match.params.project)
         if (this.props.match.params.project != nextProps.match.params.project) {
-            this.props.fetchSingleProject(nextProps.match.params.project);
+            this.props.fetchProjectNotes(nextProps.match.params.project);
         }
     }
 
+    handleClick(event) {
+        this.props.removeNote(Number(event.target.value))
+    }
+
     render() {
-        console.log('PROJECT VIEW PROPS', this.props)
         return (
             <div>
                 {
                     this.props.projectNotes.map(note => {
                         return <p key={note.id}>
-                            {note.subject}
+                            <button value={note.id} onClick={this.handleClick}>x</button> 
                             <br />{note.text}
                         </p>
                     })
@@ -48,8 +57,11 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchSingleProject(project) {
-      dispatch(getSingleProjectThunk(project))
+    fetchProjectNotes(projectName) {
+        dispatch(getProjectNotesThunk(projectName))
+    },
+    removeNote(noteId) {
+        dispatch(removeNoteFromProjectThunk(noteId))
     }
   }
 }

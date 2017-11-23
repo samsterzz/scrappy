@@ -14,7 +14,7 @@ export class AllView extends Component {
 
     render() {
         return (
-            <div>
+            <div className="notes-list">
                 {
                     this.props.notes.map(note => 
                         <Note 

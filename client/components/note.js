@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
+import {withRouter} from 'react-router';
 import {connect} from 'react-redux'
-import {editNoteThunk, removeNoteThunk} from '../store'
+import {editNoteThunk, removeNoteThunk, removeNoteFromProjectThunk} from '../store'
 
 /**
  * COMPONENT
@@ -41,15 +42,19 @@ export class Note extends Component {
     }
 
     handleClick(event) {
-        this.props.removeNote(Number(event.target.value))
+        this.props.match.params.project ? 
+            this.props.removeNoteFromProject(Number(event.target.value)) 
+            : this.props.removeNote(Number(event.target.value))
     }
 
     render() {
         console.log(this.state.showEdit)
         return (
             <div className="note">
-                <button onClick={this.toggleVisible}>Edit</button>
-                <button value={this.props.noteId} onClick={this.handleClick}>x</button>
+                <div className="note-buttons">
+                    <button onClick={this.toggleVisible}>Edit</button>
+                    <button value={this.props.noteId} onClick={this.handleClick}>x</button>
+                </div>
                 {
                     this.props.image && <p><img src={this.state.image} /></p>
                 }
@@ -83,8 +88,11 @@ const mapDispatch = (dispatch) => {
     },
     removeNote(noteId) {
         dispatch(removeNoteThunk(noteId))
+    },
+    removeNoteFromProject(noteId) {
+        dispatch(removeNoteFromProjectThunk(noteId))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(Note)
+export default withRouter(connect(mapState, mapDispatch)(Note))

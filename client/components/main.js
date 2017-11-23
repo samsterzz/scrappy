@@ -48,7 +48,7 @@ const Main = (props) => {
         }
       </nav>
       <hr />
-      {isLoggedIn ? <div>{component}</div> : null}
+      {isLoggedIn ? <div className="sidebar">{component}</div> : null}
       {children}
     </div>
   )

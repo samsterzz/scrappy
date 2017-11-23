@@ -38,7 +38,7 @@ export class ProjectView extends Component {
 
     render() {
         return (
-            <div>
+            <div className="notes-list">
                 {
                     this.props.projectNotes.map(note => 
                         <Note

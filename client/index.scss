@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  margin: auto;
+  width: 60%;
 
   a {
     text-decoration: none;
@@ -44,7 +46,29 @@ body {
 
   .note {
     // border: 2px solid black;
-    max-width: 75%;
+    width: 95%;
     background: antiquewhite;
+  }
+
+  .note-buttons {
+    text-align: right;
+  }
+
+  .sidebar {
+    float: left;
+    width: 30%;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    padding: 5%;
+  }
+
+  .notes-list {
+    float: right;
+    width: 70%;
   }
 }

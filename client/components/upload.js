@@ -88,11 +88,13 @@ export class Upload extends Component {
                         )
                     }
                 </select></p>
-                <p>Text: <input
+                <p>Text: 
+                    <br /><textarea
                     type="text"
                     name="text"
                     value={this.state.text}
-                    onChange = {this.handleChange} 
+                    onChange = {this.handleChange}
+                    className="add-note-text"
                 /></p>
                 <p>Image: <input 
                     type="file"

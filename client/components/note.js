@@ -69,7 +69,7 @@ export class Note extends Component {
                             type="text"
                             value={this.state.text}
                             onChange={this.handleChange}
-                            className="note-edit"
+                            className="edit-note-text"
                         />
                         <br /><button type="submit">Submit</button>
                     </form>

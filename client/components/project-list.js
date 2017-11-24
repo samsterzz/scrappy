@@ -28,15 +28,21 @@ export class ProjectList extends Component {
 
     handleChange(event) {
         this.setState({name: event.target.value})
+
+        console.log(this.state.name)
     }
 
     handleSubmit(event) {
         event.preventDefault()
 
+        if (!this.state.name) {
+            alert('Please enter a project name.')
+            return
+        }
+
         this.props.createProject(this.state, this.props.userId)
 
         history.push(`/projects/${this.state.name}`)
-
         this.setState({name: ''})
     }
 

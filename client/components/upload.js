@@ -49,39 +49,38 @@ export class Upload extends Component {
         event.preventDefault()
 
         if (!this.state.projectId && !this.props.upload.id) {
-            alert("Oops! Please select a project.")
-            return false
+            alert("Oops! A note must have a project.")
+            return
         }
 
         this.props.publish({
-            text: this.state.text || '',
-            image: this.state.image || '',
-            userId: this.props.userId,
-            projectId: this.props.upload.id || this.state.projectId
+            text: this.state.text,
+            image: this.state.image,
+            userId: this.state.userId,
+            projectId: this.state.projectId || this.props.upload.id
         })
 
-        if (this.state.projectId || this.props.upload.id) {
+        if (this.state.projectId) {
             let projectName = this.props.projects.find(project => 
-                project.id === this.state.projectId || this.props.upload.id
+                project.id === this.state.projectId
             ).name
             history.push(`/projects/${projectName}`)
         } else {
-            history.push(`/projects`)
+            history.push(`/projects/${this.props.upload.name}`)
         }
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <p><select 
-                    onChange={this.handleChange} 
-                    value={this.props.upload ? this.props.upload.id : "" }>
-                    <option value="">Select Project</option>  
+                <p><select onChange={this.handleChange} >
+                    <option value={null}>Select Project</option>  
                     {
                         this.props.projects.map(project => 
                             <option 
                                 key={project.id} 
-                                value={project.id}>
+                                value={project.id}
+                                selected={this.props.upload.name === project.name && "selected"}>
                                     {project.name}
                             </option>
                         )

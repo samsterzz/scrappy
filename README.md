@@ -1,4 +1,4 @@
-# Boilermaker
+# Scrappy Notes
 
 *Good things come in pairs*
 

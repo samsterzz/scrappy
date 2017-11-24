@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -19,9 +20,8 @@ const setProject = project => ({type: SET_PROJECT, project})
  * THUNK CREATORS
  */
 
-export const createNoteThunk = (draft) => 
+export const createNoteThunk = (draft, projectName) => 
   dispatch => {
-    console.log('DRAFT', draft)
 
     let formData = new FormData();
         formData.append('projectId', draft.projectId)
@@ -34,6 +34,9 @@ export const createNoteThunk = (draft) =>
     }
       
     axios.post(`/api/notes/add`, formData, config)
+      .then(() => {
+        history.push(`/projects/${projectName}`)
+      })
       .catch(err => console.log(err))
   }
     

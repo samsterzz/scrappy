@@ -44,15 +44,15 @@ router.post('/add', form.single('image'), (req, res, next) => {
             console.log(err)
           } else {
             console.log("Successfully uploaded data to myBucket/myKey");
+            
+            note.update({
+              image: params.Key
+            })
           }
+
+          res.json(note)
         });
-      
-        note.update({
-          image: params.Key
-        })
-      }
-      
-      res.json(note)
+      }     
     })
     .catch(next)
 })

@@ -16,14 +16,12 @@ export class Main extends Component {
 
   constructor(props) {
     super(props)
+    
     this.state = {
       projects: props.location.pathname.includes('projects') ? true : false,
       settings: props.location.pathname.includes('settings') ? true : false,
       upload: props.location.pathname.includes('upload') ? true : false
     }
-
-    console.log(props.location.pathname)
-    console.log(this.state)
   }
 
   componentWillReceiveProps(nextProps) {

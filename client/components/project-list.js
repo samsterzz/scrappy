@@ -61,7 +61,7 @@ export class ProjectList extends Component {
                         type="text"
                         value={this.state.name}
                         onChange = {this.handleChange} 
-                        className="new-project-input"
+                        className="new-project"
                     />
                     <button type="submit">+</button>
                 </form></li>

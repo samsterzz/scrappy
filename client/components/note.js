@@ -42,13 +42,17 @@ export class Note extends Component {
     }
 
     handleClick(event) {
-        this.props.match.params.project ? 
-            this.props.removeNoteFromProject(Number(event.target.value)) 
-            : this.props.removeNote(Number(event.target.value))
+
+        let remove = confirm("Are you sure you want to delete this note?")
+
+        if (remove) {
+            this.props.match.params.project ? 
+                this.props.removeNoteFromProject(Number(event.target.value)) 
+                : this.props.removeNote(Number(event.target.value))
+        }
     }
 
     render() {
-        console.log(this.state.showEdit)
         return (
             <div className="note">
                 <div className="note-buttons">
@@ -61,10 +65,11 @@ export class Note extends Component {
                 {
                     !this.state.showEdit ? <p>{this.state.text}</p> 
                     : <form onSubmit={this.handleSubmit}>
-                        <input
+                        <textarea
                             type="text"
                             value={this.state.text}
                             onChange={this.handleChange}
+                            className="note-edit"
                         />
                         <br /><button type="submit">Submit</button>
                     </form>

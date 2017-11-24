@@ -74,7 +74,7 @@ body {
     // border: 2px solid black;
     width: 95%;
     background: antiquewhite;
-    margin: auto;
+    margin: 5% auto;
   }
 
   .note-buttons {
@@ -97,12 +97,38 @@ body {
     max-width: 95%;
   }
 
-  .new-project-input {
+  .new-project {
     width: 65%
+  }
+
+  .note-edit {
+    width: 75%
   }
 
   .notes-list {
     float: right;
     width: 70%;
+  }
+
+  .loader {
+    border: 1px solid #f3f3f3;
+    border-top: 1px solid gray;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+    padding: 0;
+    margin: 0;
+}
+
+  @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+  }
+
+  .submit {
+    padding: 0;
+    margin: 0;
+    height: 25px;
   }
 }

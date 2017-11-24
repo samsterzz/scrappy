@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getProjectsThunk, createNoteThunk, setProjectThunk} from '../store'
-import history from '../history'
 
 /**
  * COMPONENT
@@ -15,7 +14,8 @@ export class Upload extends Component {
             text: '',
             image: '',
             userId: props.userId,
-            projectId: null
+            projectId: null,
+            submitted: false
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -53,21 +53,23 @@ export class Upload extends Component {
             return
         }
 
+        this.setState({submitted: true})
+
+        let projectName
+        if (this.state.projectId) {
+            projectName = this.props.projects.find(project => 
+                project.id === this.state.projectId
+            ).name
+        } else {
+            projectName = this.props.upload.name
+        }
+        
         this.props.publish({
             text: this.state.text,
             image: this.state.image,
             userId: this.state.userId,
             projectId: this.state.projectId || this.props.upload.id
-        })
-
-        if (this.state.projectId) {
-            let projectName = this.props.projects.find(project => 
-                project.id === this.state.projectId
-            ).name
-            history.push(`/projects/${projectName}`)
-        } else {
-            history.push(`/projects/${this.props.upload.name}`)
-        }
+        }, projectName)
     }
 
     render() {
@@ -96,7 +98,17 @@ export class Upload extends Component {
                     type="file"
                     onChange = {this.handleImageChange}
                 /></p>
-                <p><button type="submit">Submit</button></p>
+                <div className="submit">
+                    {
+                        !this.state.submitted ?
+                        <button 
+                            type="submit" 
+                            disabled={this.state.submitted ? "disabled" : ""}>
+                            Submit
+                        </button>
+                        : <div className="loader"></div>
+                    }
+                </div>
             </form>
         )
     }
@@ -120,8 +132,8 @@ const mapDispatch = (dispatch) => {
         fetchProjects(userId) {
             dispatch(getProjectsThunk(userId))
         },
-        publish(draft) {
-            dispatch(createNoteThunk(draft))
+        publish(draft, projectName) {
+            dispatch(createNoteThunk(draft, projectName))
         },
         setProject(projectName) {
             dispatch(setProjectThunk(projectName))

@@ -17,7 +17,7 @@ export class Upload extends Component {
             userId: props.userId,
             projectId: null
         }
-        console.log('THE PROPS IN STATE', props)
+
         this.handleChange = this.handleChange.bind(this)
         this.handleImageChange = this.handleImageChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)

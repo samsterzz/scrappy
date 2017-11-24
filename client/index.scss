@@ -12,6 +12,26 @@ body {
     display: block;
   }
 
+  .left-nav {
+    float: left;
+  }
+
+  .right-nav {
+    float: right;
+  }
+
+  .icon:hover {
+    fill: pink;
+  }
+
+  hr {
+    clear: both
+  }
+
+  // nav {
+  //   text-transform: capitalize
+  // }
+
   nav a {
     display: inline-block;
     margin: 1em;
@@ -24,11 +44,17 @@ body {
 
   .active {
     color: pink;
-    font-weight: bold;
+    fill: pink
   }
 
-  img {
+  a:hover {
+    color: pink;
+  }
+
+  .note-image {
     max-width: 75%;
+    display: block;
+    margin: auto;
   }
 
   .icon {
@@ -48,6 +74,7 @@ body {
     // border: 2px solid black;
     width: 95%;
     background: antiquewhite;
+    margin: auto;
   }
 
   .note-buttons {
@@ -61,10 +88,17 @@ body {
 
   ul {
     list-style: none;
+    padding: 5%;
+    margin: auto;
   }
 
   li {
     padding: 5%;
+    max-width: 95%;
+  }
+
+  .new-project-input {
+    width: 65%
   }
 
   .notes-list {

@@ -56,7 +56,7 @@ export class Note extends Component {
                     <button value={this.props.noteId} onClick={this.handleClick}>x</button>
                 </div>
                 {
-                    this.props.image && <p><img src={this.state.image} /></p>
+                    this.props.image && <p><img className="note-image" src={this.state.image} /></p>
                 }
                 {
                     !this.state.showEdit ? <p>{this.state.text}</p> 

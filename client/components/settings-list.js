@@ -7,10 +7,8 @@ import {connect} from 'react-redux'
  * COMPONENT
  */
 export const SettingsList = props => {
-    console.log('SETTINGS LIST PROPS', props)
     return (
         <ul>
-            {console.log('i am rendering')}
             <li><NavLink to="/settings/account">Your Account</NavLink></li>
             <li><NavLink to="/settings/general">General</NavLink></li>
         </ul>

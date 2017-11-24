@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link, NavLink} from 'react-router-dom'
@@ -12,46 +12,77 @@ import {CloudUploadIcon, GearIcon} from 'react-octicons'
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = (props) => {
+export class Main extends Component {
 
-  const {children, handleClick, isLoggedIn} = props
+  constructor(props) {
+    super(props)
+    this.state = {
+      projects: props.location.pathname.includes('projects') ? true : false,
+      settings: props.location.pathname.includes('settings') ? true : false,
+      upload: props.location.pathname.includes('upload') ? true : false
+    }
 
-  let component;
-  if (props.location.pathname.includes('projects')) {
-    component = <ProjectList />
-  } else if (props.location.pathname.includes('settings')) {
-    component = <SettingsList />
+    console.log(props.location.pathname)
+    console.log(this.state)
   }
 
-  return (
-    <div>
-      <h1>SCRAPPY</h1> 
-      <nav>
-        {
-          isLoggedIn
-            ? <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
-              <a href="#" onClick={handleClick}>Logout</a>
-              <NavLink to="/settings">
-                <GearIcon width="25" height="25" className="icon" />
-              </NavLink>
-              <NavLink to="/upload">
-                <CloudUploadIcon  width="25" height="25" className="icon" />
-              </NavLink>
-            </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-            </div>
-        }
-      </nav>
-      <hr />
-      {isLoggedIn ? <div className="sidebar">{component}</div> : null}
-      {children}
-    </div>
-  )
+  componentWillReceiveProps(nextProps) {
+
+    if (this.props.location.pathname != nextProps.location.pathname) {
+        this.setState({
+          [this.props.location.pathname.split('/')[1]]: false,
+          [nextProps.location.pathname.split('/')[1]]: true
+        })
+    }
+  }
+
+  render () {
+    const {children, logOut, isLoggedIn} = this.props
+
+    let component;
+    if (this.props.location.pathname.includes('projects')) {
+      component = <ProjectList />
+    } else if (this.props.location.pathname.includes('settings')) {
+      component = <SettingsList />
+    }
+
+    return (
+      <div>
+        <h1>scrappy</h1> 
+        <nav>
+          {
+            isLoggedIn
+              ? <div>
+                {/* The navbar will show these links after you log in */}
+                <div className="left-nav">
+                  <Link to="/projects" 
+                    className={this.state.projects ? "active" : ""}>home</Link>
+                  <a href="#" onClick={logOut}>logout</a>
+                </div>
+                <div className="right-nav">
+                  <NavLink to="/settings">
+                    <GearIcon width="25" height="25" 
+                      className={this.state.settings ? "active" : "icon"} />
+                  </NavLink>
+                  <NavLink to="/upload">
+                    <CloudUploadIcon  width="25" height="25" 
+                      className={this.state.upload ? "active" : "icon"} />
+                  </NavLink>
+                </div>
+              </div>
+              : <div>
+                {/* The navbar will show these links before you log in */}
+                <Link to="/login">login</Link>
+                <Link to="/signup">sign up</Link>
+              </div>
+          }
+        </nav>
+        <hr />
+        {isLoggedIn ? <div className="sidebar">{component}</div> : null}
+        {children}
+      </div>
+    )
+  }
 }
 
 /**
@@ -65,7 +96,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    logOut () {
       dispatch(logout())
     }
   }
@@ -80,6 +111,6 @@ export default withRouter(connect(mapState, mapDispatch)(Main))
  */
 Main.propTypes = {
   children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }

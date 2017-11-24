@@ -52,7 +52,9 @@ router.post('/add', form.single('image'), (req, res, next) => {
 
           res.json(note)
         });
-      }     
+      } else {
+        res.json(note)
+      }
     })
     .catch(next)
 })

@@ -2,6 +2,18 @@ const router = require('express').Router()
 const {Project, Note} = require('../db/models')
 module.exports = router
 
+router.get('/name/:name', (req, res, next) => {
+    Project.findOne({
+        where: {
+            name: req.params.name
+        }
+    })
+    .then(project => {
+        res.json(project)
+    })
+    .catch(next)
+})
+
 router.get('/:name', (req, res, next) => {
     Project.findOne({
         where: {

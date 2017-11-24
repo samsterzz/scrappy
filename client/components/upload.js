@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getProjectsThunk, createNoteThunk} from '../store'
+import {getProjectsThunk, createNoteThunk, setProjectThunk} from '../store'
 import history from '../history'
 
 /**
@@ -25,6 +25,8 @@ export class Upload extends Component {
 
     componentDidMount() {
         this.props.fetchProjects(this.props.userId)
+
+        this.props.previousPath && this.props.setProject(this.props.previousPath)
     }
 
     handleChange(event) {
@@ -46,16 +48,21 @@ export class Upload extends Component {
     handleSubmit(event) {
         event.preventDefault()
 
-        if (!this.state.projectId) {
+        if (!this.state.projectId && !this.props.upload.id) {
             alert("Oops! Please select a project.")
             return false
         }
 
-        this.props.publish(this.state)
+        this.props.publish({
+            text: this.state.text || '',
+            image: this.state.image || '',
+            userId: this.props.userId,
+            projectId: this.props.upload.id || this.state.projectId
+        })
 
-        if (this.state.projectId) {
+        if (this.state.projectId || this.props.upload.id) {
             let projectName = this.props.projects.find(project => 
-                project.id === this.state.projectId
+                project.id === this.state.projectId || this.props.upload.id
             ).name
             history.push(`/projects/${projectName}`)
         } else {
@@ -66,14 +73,15 @@ export class Upload extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <p><select onChange={this.handleChange}>
+                <p><select 
+                    onChange={this.handleChange} 
+                    value={this.props.upload ? this.props.upload.id : "" }>
                     <option value="">Select Project</option>  
                     {
                         this.props.projects.map(project => 
                             <option 
                                 key={project.id} 
-                                value={project.id} 
-                                selected={this.props.previousPath === project.name}>
+                                value={project.id}>
                                     {project.name}
                             </option>
                         )
@@ -99,10 +107,12 @@ export class Upload extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
+    console.log('THE STATE', state)
     return {
         userId: state.user.id,
         projects: state.projects,
-        previousPath: state.previousPath
+        previousPath: state.previousPath,
+        upload: state.upload
     }
 }
 
@@ -113,6 +123,9 @@ const mapDispatch = (dispatch) => {
         },
         publish(draft) {
             dispatch(createNoteThunk(draft))
+        },
+        setProject(projectName) {
+            dispatch(setProjectThunk(projectName))
         }
     }
 }

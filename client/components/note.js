@@ -73,7 +73,7 @@ export class Note extends Component {
                     <p><img className="note-image" src={this.state.image} onClick={this.toggleModal} />
                     <Modal show={this.state.isOpen}
                         onClose={this.toggleModal}>
-                        <img src={this.state.image} />
+                        <img className="modal-image" src={this.state.image} />
                     </Modal>
                     </p>
                 }

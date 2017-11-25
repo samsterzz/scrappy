@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 import {withRouter, Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 import {ProjectList, SettingsList} from './'
-import {CloudUploadIcon, GearIcon} from 'react-octicons'
+import {CloudUploadIcon, GearIcon, SearchIcon} from 'react-octicons'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -20,8 +21,12 @@ export class Main extends Component {
     this.state = {
       projects: props.location.pathname.includes('projects') && !props.location.pathname.includes('settings') ? true : false,
       settings: props.location.pathname.includes('settings') || props.location.pathname.includes('settings/projects') ? true : false,
-      upload: props.location.pathname.includes('upload') ? true : false
+      upload: props.location.pathname.includes('upload') ? true : false,
+      search: ''
     }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,13 +39,26 @@ export class Main extends Component {
     }
   }
 
+  handleChange(event) {
+    this.setState({search: event.target.value})
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+
+    if (this.state.search) {
+      history.push(`/projects/search/${this.state.search}`)
+      this.setState({search: ''})
+    }
+  }
+
   render () {
     const {children, logOut, isLoggedIn} = this.props
 
     let component;
     if (this.props.location.pathname.includes('settings')) {
       component = <SettingsList />
-    } else if (this.props.location.pathname.includes('projects')) {
+    } else if (this.props.location.pathname.includes('projects') || this.props.location.pathname.includes('search')) {
       component = <ProjectList />
     }
 
@@ -56,6 +74,16 @@ export class Main extends Component {
                   <Link to="/projects" 
                     className={this.state.projects ? "active" : ""}>home</Link>
                   <a href="#" onClick={logOut}>logout</a>
+                  <form onSubmit={this.handleSubmit} className="search-form">
+                    <input 
+                      type="search" 
+                      placeholder="Search..." 
+                      value={this.state.search}
+                      onChange={this.handleChange} />
+                    <button type="submit" className="search-button">
+                      <SearchIcon width="15" height="15" className="search-icon" />
+                    </button>
+                  </form>
                 </div>
                 <div className="right-nav">
                   <NavLink to="/settings">

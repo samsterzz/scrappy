@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router';
-import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {getProjectNotesThunk, setPathThunk} from '../store'
 import {Note} from './'
@@ -14,8 +13,6 @@ export class ProjectView extends Component {
         super(props)
 
         props.setPath(props.match.params.project)
-
-        this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount() {
@@ -28,10 +25,6 @@ export class ProjectView extends Component {
         if (this.props.match.params.project != nextProps.match.params.project) {
             this.props.fetchProjectNotes(nextProps.match.params.project)
         }
-    }
-
-    handleClick(event) {
-        this.props.removeNote(Number(event.target.value))
     }
 
     render() {

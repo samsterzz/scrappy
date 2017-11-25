@@ -7,6 +7,18 @@ module.exports = router
 var AWS = require('aws-sdk');
 var s3 = new AWS.S3();
 
+router.get('/search/:terms', (req, res, next) => {
+  let terms = req.params.terms
+  Note.findAll({
+    where: {
+      text: {
+        $like: '%' + terms + '%'
+      }
+    }
+  })
+  .then(notes => res.json(notes))
+})
+
 router.get('/:userid', (req, res, next) => {
   Note.findAll({
     where: {

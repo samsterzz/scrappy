@@ -51,7 +51,7 @@ export class ProjectList extends Component {
             <ul>
                 {
                     this.props.projects.map(project => {
-                        if (!project.isArchived) return <li key={project.id}>
+                        if (!project.isArchived) return <li key={project.id} className="project-list">
                              <NavLink to={`/projects/${project.name}`}>{project.name}</NavLink> 
                         </li>
                     })

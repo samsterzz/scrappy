@@ -3,6 +3,10 @@ body {
   margin: auto;
   width: 60%;
 
+  h1 {
+    margin-bottom: 1em;
+  }
+
   a {
     text-decoration: none;
     color: darkgreen;
@@ -14,23 +18,21 @@ body {
 
   .left-nav {
     float: left;
+    width: 75%;
   }
 
   .right-nav {
     float: right;
+    margin: -5px;
   }
 
   .icon:hover {
     fill: pink;
   }
 
-  hr {
-    clear: both
+  nav {
+    margin-bottom: 6em;
   }
-
-  // nav {
-  //   text-transform: capitalize
-  // }
 
   nav a {
     display: inline-block;
@@ -51,6 +53,19 @@ body {
     color: pink;
   }
 
+  .search-icon {
+    fill: gray;
+  }
+
+  .search-button {
+    padding: 1px 2px;
+  }
+
+  .search-form {
+    display: inline;
+    margin-left: 10%;
+  }
+
   .note-image {
     max-width: 75%;
     display: block;
@@ -64,6 +79,8 @@ body {
   /* Gradient color1 - color2 - color1 */
 
   hr {
+    clear: both;
+    margin-bottom: 1em;
       border: 0;
       height: 1px;
       background: #333;
@@ -99,6 +116,11 @@ body {
 
   .new-project {
     width: 65%
+  }
+
+  .project-list {
+    margin-top: .5em;
+    margin-bottom: .5em;
   }
 
   .edit-note-text {

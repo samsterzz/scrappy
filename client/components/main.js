@@ -18,8 +18,8 @@ export class Main extends Component {
     super(props)
     
     this.state = {
-      projects: props.location.pathname.includes('projects') ? true : false,
-      settings: props.location.pathname.includes('settings') ? true : false,
+      projects: props.location.pathname.includes('projects') && !props.location.pathname.includes('settings') ? true : false,
+      settings: props.location.pathname.includes('settings') || props.location.pathname.includes('settings/projects') ? true : false,
       upload: props.location.pathname.includes('upload') ? true : false
     }
   }
@@ -38,10 +38,10 @@ export class Main extends Component {
     const {children, logOut, isLoggedIn} = this.props
 
     let component;
-    if (this.props.location.pathname.includes('projects')) {
-      component = <ProjectList />
-    } else if (this.props.location.pathname.includes('settings')) {
+    if (this.props.location.pathname.includes('settings')) {
       component = <SettingsList />
+    } else if (this.props.location.pathname.includes('projects')) {
+      component = <ProjectList />
     }
 
     return (

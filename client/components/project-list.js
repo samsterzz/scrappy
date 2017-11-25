@@ -23,7 +23,7 @@ export class ProjectList extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchProjects(this.props.userId);
+        this.props.fetchProjects(this.props.userId)
     }
 
     handleChange(event) {
@@ -51,7 +51,7 @@ export class ProjectList extends Component {
             <ul>
                 {
                     this.props.projects.map(project => {
-                        return <li key={project.id}>
+                        if (!project.isArchived) return <li key={project.id}>
                              <NavLink to={`/projects/${project.name}`}>{project.name}</NavLink> 
                         </li>
                     })

@@ -9,8 +9,7 @@ import {connect} from 'react-redux'
 export const SettingsList = props => {
     return (
         <ul>
-            <li><NavLink to="/settings/account">Your Account</NavLink></li>
-            <li><NavLink to="/settings/general">General</NavLink></li>
+            <li><NavLink to="/settings/projects">Your Projects</NavLink></li>
         </ul>
     )
     

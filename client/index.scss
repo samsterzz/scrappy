@@ -114,6 +114,11 @@ body {
     width: 70%;
   }
 
+  .settings {
+    float: right;
+    width: 65%;
+  }
+
   .loader {
     border: 1px solid #f3f3f3;
     border-top: 1px solid gray;
@@ -134,5 +139,13 @@ body {
     padding: 0;
     margin: 0;
     height: 25px;
+  }
+
+  .project-checkbox {
+    margin: 3%;
+  }
+
+  .archive-button {
+    margin: 3%;
   }
 }

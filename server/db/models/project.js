@@ -6,6 +6,11 @@ const Project = db.define('project', {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
+    },
+    isArchived: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 })
 

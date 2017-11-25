@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, AllView, ProjectView, SettingsHome, SettingsAccount, SettingsGeneral, Upload} from './components'
+import {Main, Login, Signup, AllView, ProjectView, SettingsHome, SettingsProjects, Upload} from './components'
 import {me} from './store'
 
 /**
@@ -30,8 +30,7 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/upload" component={Upload} />
-                  <Route path="/settings/account" component={SettingsAccount} />
-                  <Route path="/settings/general" component={SettingsGeneral} />
+                  <Route path="/settings/projects" component={SettingsProjects} />
                   <Route path="/settings" component={SettingsHome} />
                   <Route path="/projects/:project" component={ProjectView} />
                   <Route path="/projects" component={AllView} />

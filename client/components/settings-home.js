@@ -9,7 +9,7 @@ export const SettingsHome = (props) => {
 
   return (
     <div>
-        Hello, {
+        <br />Hello, {
           firstName ? firstName : email
         }!
     </div>

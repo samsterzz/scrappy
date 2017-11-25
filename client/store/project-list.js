@@ -20,15 +20,32 @@ const getProjects = projects => ({type: GET_PROJECTS, projects})
  * THUNK CREATORS
  */
 export const getProjectsThunk = (userId) =>
-  dispatch =>
+  dispatch => 
     axios.get(`/api/users/${userId}`)
-      .then(res =>
-        dispatch(getProjects(res.data)))
+      .then(res => {
+        dispatch(getProjects(res.data))
+      })
       .catch(err => console.log(err))
-
+  
 export const addProjectThunk = (project) =>
   dispatch =>
     axios.post(`/api/projects/add`, project)
+      .catch(err => console.log(err))
+
+export const archiveThunk = (projectIds, userId) =>
+  dispatch => 
+    axios.put(`/api/projects/archive`, projectIds)
+      .then(() => 
+        dispatch(getProjectsThunk(userId))
+      )
+      .catch(err => console.log(err))
+  
+export const unarchiveThunk = (projectIds, userId) =>
+  dispatch => 
+    axios.put(`/api/projects/unarchive`, projectIds)
+      .then(() => 
+        dispatch(getProjectsThunk(userId))
+      )
       .catch(err => console.log(err))
 
 /**

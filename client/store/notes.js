@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -26,6 +27,26 @@ export const getNotesThunk = (userId) =>
       .then(res =>
         dispatch(getNotes(res.data)))
       .catch(err => console.log(err))
+
+export const createNoteThunk = (draft, projectName) => 
+  dispatch => {
+
+    let formData = new FormData();
+        formData.append('projectId', draft.projectId)
+        formData.append('userId', draft.userId)
+        formData.append('text', draft.text)
+        formData.append('image', draft.image);
+
+    var config = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    }
+      
+    axios.post(`/api/notes/add`, formData, config)
+      .then(() => {
+        history.push(`/projects/${projectName}`)
+      })
+      .catch(err => console.log(err))
+  }
 
 export const editNoteThunk = (noteId, note) => 
   dispatch => {

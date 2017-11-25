@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router';
 import {connect} from 'react-redux'
 import {editNoteThunk, removeNoteThunk, removeNoteFromProjectThunk} from '../store'
+import {Modal} from './'
 
 /**
  * COMPONENT
@@ -14,13 +15,15 @@ export class Note extends Component {
         this.state = {
             image: 'https://s3.us-east-2.amazonaws.com/scrappynotes/' + props.image,
             text: props.text,
-            showEdit: false
+            showEdit: false,
+            isOpen: false
         }
 
         this.toggleVisible = this.toggleVisible.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.toggleModal = this.toggleModal.bind(this)
     }
 
     toggleVisible() {
@@ -52,6 +55,12 @@ export class Note extends Component {
         }
     }
 
+    toggleModal = () => {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
+
     render() {
         return (
             <div className="note">
@@ -60,7 +69,13 @@ export class Note extends Component {
                     <button value={this.props.noteId} onClick={this.handleClick}>x</button>
                 </div>
                 {
-                    this.props.image && <p><img className="note-image" src={this.state.image} /></p>
+                    this.props.image && 
+                    <p><img className="note-image" src={this.state.image} onClick={this.toggleModal} />
+                    <Modal show={this.state.isOpen}
+                        onClose={this.toggleModal}>
+                        <img src={this.state.image} />
+                    </Modal>
+                    </p>
                 }
                 {
                     !this.state.showEdit ? <p>{this.state.text}</p> 

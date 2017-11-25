@@ -67,9 +67,10 @@ body {
   }
 
   .note-image {
-    max-width: 75%;
+    max-width: 100%;
     display: block;
     margin: auto;
+    cursor: pointer;
   }
 
   .icon {
@@ -88,7 +89,7 @@ body {
   }
 
   .note {
-    // border: 2px solid black;
+    // border: 1px solid bisque;
     width: 95%;
     background: antiquewhite;
     margin: 5% auto;

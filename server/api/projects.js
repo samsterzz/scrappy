@@ -65,6 +65,12 @@ router.put('/archive', (req, res, next) => {
     .then(projects => res.json(projects));
 })
 
+router.put('/edit/:id', (req, res, next) => {
+  Project.findById(req.params.id)
+  .then(project => project.update(req.body))
+  .catch(next)
+})
+
 router.put('/unarchive', (req, res, next) => {
     Project.update(
         {isArchived: false},

@@ -40,21 +40,21 @@ export class Project extends Component {
 
     render() {
         return (
-            <div>
+            <div className="project">
                 {
                     !this.state.showEdit ? 
                     <span>
                         {this.state.name}
-                        <button onClick={this.toggleVisible}>Rename</button>
+                        <button onClick={this.toggleVisible} className="project-button">Rename</button>
                     </span>
                     : <form onSubmit={this.handleSubmit}>
                         <input
                             type="text"
                             value={this.state.name}
                             onChange={this.handleChange}
-                            className="edit-note-text"
+                            className="edit-project-name"
                         />
-                        <br /><button type="submit">Submit</button>
+                        <button type="submit" className="project-button">Submit</button>
                     </form>
                 }
             </div>

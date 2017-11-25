@@ -48,6 +48,12 @@ export const unarchiveThunk = (projectIds, userId) =>
       )
       .catch(err => console.log(err))
 
+export const editProjectThunk = (projectId, project) => 
+  dispatch => {
+    axios.put(`/api/projects/edit/${projectId}`, project)
+        .catch(err => console.log(err))
+  }
+
 /**
  * REDUCER
  */

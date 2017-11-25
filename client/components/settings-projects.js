@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getProjectsThunk, archiveThunk, unarchiveThunk} from '../store'
+import {Project} from './'
 
 /**
  * COMPONENT
@@ -86,8 +87,8 @@ export class SettingsProjects extends Component {
                     value={project.id}
                     onChange={this.handleArchiveChange}
                     className="project-checkbox" 
-                  />{project.name}
-                  <button>Rename</button>
+                  />
+                  <Project name={project.name} projectId={project.id} />
                   <br />
                 </span>
               })
@@ -103,8 +104,8 @@ export class SettingsProjects extends Component {
                     value={project.id}
                     onChange={this.handleUnarchiveChange}
                     className="project-checkbox" 
-                  />{project.name}
-                  <button>Rename</button>
+                  />
+                  <Project name={project.name} projectId={project.id} />
                   <br />
                 </span>
               })

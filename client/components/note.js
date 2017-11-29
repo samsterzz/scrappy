@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router';
 import {connect} from 'react-redux'
 import {editNoteThunk, removeNoteThunk, removeNoteFromProjectThunk} from '../store'
-import {Modal} from './'
+import Lightbox from 'react-images'
 
 /**
  * COMPONENT
@@ -16,14 +16,14 @@ export class Note extends Component {
             image: 'https://s3.us-east-2.amazonaws.com/scrappynotes/' + props.image,
             text: props.text,
             showEdit: false,
-            isOpen: false
+            lightboxIsOpen: false
         }
 
         this.toggleVisible = this.toggleVisible.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this)
-        this.toggleModal = this.toggleModal.bind(this)
+        this.toggleLightbox = this.toggleLightbox.bind(this)
     }
 
     toggleVisible() {
@@ -55,9 +55,9 @@ export class Note extends Component {
         }
     }
 
-    toggleModal = () => {
+    toggleLightbox = () => {
         this.setState({
-            isOpen: !this.state.isOpen
+            lightboxIsOpen: !this.state.lightboxIsOpen
         });
     }
 
@@ -70,11 +70,13 @@ export class Note extends Component {
                 </div>
                 {
                     this.props.image && 
-                    <p><img className="note-image" src={this.state.image} onClick={this.toggleModal} />
-                    <Modal show={this.state.isOpen}
-                        onClose={this.toggleModal}>
-                        <img className="modal-image" src={this.state.image} />
-                    </Modal>
+                    <p><img className="note-image" src={this.state.image} onClick={this.toggleLightbox} />
+                    <Lightbox
+                        images={[{ src: this.state.image }]}
+                        isOpen={this.state.lightboxIsOpen}
+                        onClose={this.toggleLightbox}
+                        showImageCount={false}
+                    />
                     </p>
                 }
                 {

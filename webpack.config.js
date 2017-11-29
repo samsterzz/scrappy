@@ -2,12 +2,6 @@ const LiveReloadPlugin = require('webpack-livereload-plugin')
 const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
-  entry: './src/index.tsx',
-  output: {
-      path: path.join(__dirname, 'dist'),
-      filename: 'bundle.js',
-      publicPath: '/public/'
-  },
   entry: './client/index.js',
   output: {
     path: __dirname,

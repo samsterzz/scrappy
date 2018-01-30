@@ -77,7 +77,7 @@ export class Main extends Component {
                   <form onSubmit={this.handleSubmit} className="search-form">
                     <input 
                       type="search" 
-                      placeholder="Search..." 
+                      placeholder="Search" 
                       value={this.state.search}
                       onChange={this.handleChange} />
                     <button type="submit" className="search-button">

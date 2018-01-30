@@ -31,7 +31,7 @@ export class ProjectView extends Component {
         return (
             <div className="notes-list">
                 {
-                    this.props.projectNotes.map(note => 
+                    this.props.projectNotes.length > 0 ? this.props.projectNotes.map(note => 
                         <Note
                             key={note.id} 
                             image={note.image} 
@@ -39,6 +39,8 @@ export class ProjectView extends Component {
                             noteId={note.id} 
                         />
                     )
+                    : [<span>There are no notes for this project. Upload one!</span>, 
+                        <img src="/arrow.png" height="35" width="35" className="arrow" />]
                 }
             </div>
         )

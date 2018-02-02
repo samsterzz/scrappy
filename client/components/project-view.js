@@ -39,8 +39,10 @@ export class ProjectView extends Component {
                             noteId={note.id} 
                         />
                     )
-                    : [<span>There are no notes for this project. Upload one!</span>, 
-                        <img src="/arrow.png" height="35" width="35" className="arrow" />]
+                    : <div className="no-notes">
+                        <span>There are no notes for this project. Upload one!</span>
+                        <img src="/arrow.png" height="35" width="35" className="arrow" />
+                    </div>
                 }
             </div>
         )

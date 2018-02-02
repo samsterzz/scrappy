@@ -80,7 +80,7 @@ export class Upload extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <p><select onChange={this.handleChange} name="projectId">
+                <p><select onChange={this.handleChange} name="projectId" className="project-select">
                     <option value="">Select Project</option>  
                     {
                         this.props.projects.map(project => 
@@ -93,8 +93,8 @@ export class Upload extends Component {
                         )
                     }
                 </select></p>
-                <p>Text: 
-                    <br /><textarea
+                <p>Add a note:</p>
+                <p><textarea
                     type="text"
                     name="text"
                     value={this.state.text}
@@ -103,7 +103,8 @@ export class Upload extends Component {
                 /></p>
                 <p>Image: <input 
                     type="file"
-                    onChange = {this.handleImageChange}
+                    onChange={this.handleImageChange}
+                    className="upload-image"
                 /></p>
                 <div className="submit">
                     {
